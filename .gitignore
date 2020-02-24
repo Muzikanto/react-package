@@ -1,0 +1,8 @@
+.env
+.idea
+dist
+node_modules/
+tsconfig.tsbuildinfo
+.DS_store
+storybook-static
+.DS_store
