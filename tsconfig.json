@@ -23,6 +23,6 @@
         "skipLibCheck": true
     },
     "include": ["src/**/*"],
-    "exclude": ["node_modules", "storybook-static", "src/mock", "*.stories"]
+    "exclude": ["node_modules", "storybook-static"]
 }
 

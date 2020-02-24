@@ -1,12 +1,67 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const path = require('path');
+const glob = require('glob');
+const TerserPlugin = require('terser-webpack-plugin');
+const nodeExternals = require('webpack-node-externals');
+
+function getEntries() {
+   const entries = {};
+
+   glob.sync('src/**/*.tsx').forEach((file) => {
+      const name = file.replace('src/', '').replace('.tsx', '').replace('.ts', '');
+
+      if (['.stories', 'mock/folders'].reduce((acc, el) => acc && name.indexOf(el) === -1, true)) {
+         entries[name] = path.join(__dirname, file);
+      }
+   });
+
+   return entries;
+}
+
+const optimization = {
+   minimizer: [
+      new TerserPlugin({
+         terserOptions: {
+            keep_classnames: true,
+            parse: {
+               ecma: 8,
+            },
+            compress: {
+               ecma: 6,
+               warnings: false,
+               comparisons: false,
+               inline: 2,
+            },
+            output: {
+               ecma: 6,
+               comments: false,
+               ascii_only: true,
+            },
+         },
+         parallel: true,
+         cache: true,
+         sourceMap: true,
+      }),
+   ],
+};
 
 module.exports = (env, argv) => {
    const config = {
-      mode: 'development',
+      mode: 'production',
       devtool: false,
-      entry: './src/index.ts',
+      entry: getEntries(),
+      externals: [nodeExternals()],
+      optimization,
       resolve: {
          extensions: ['.tsx', '.ts', '.js', '.jpg', '.png', '.svg', '.gif'],
+      },
+      node: {
+         console: false,
+         global: false,
+         process: false,
+         Buffer: false,
+         __filename: false,
+         __dirname: false,
       },
       module: {
          rules: [
@@ -44,9 +99,6 @@ module.exports = (env, argv) => {
       output: {
          path: __dirname + '/dist',
          filename: '[name].js',
-         libraryTarget: 'umd',
-         library: 'MyLib',
-         umdNamedDefine: true
       },
       plugins: [
          new MiniCssExtractPlugin({
