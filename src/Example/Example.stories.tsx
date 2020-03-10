@@ -1,5 +1,17 @@
-import componentsStory from '../mock/folders';
 import React from 'react';
-import Example from './Example';
+import Example from './Example'
 
-componentsStory().add('Example', () => <Example/>);
+export default {
+    title: 'Design System/Example',
+    parameters: {
+        component: Example,
+    },
+};
+
+export const One = () => (
+    <Example text="one"/>
+);
+
+export const Two = () => (
+    <Example text="two"/>
+);
