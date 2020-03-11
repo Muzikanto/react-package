@@ -15,3 +15,15 @@ export const One = () => (
 export const Two = () => (
     <Example text="two"/>
 );
+
+Two.story = {
+    parameters: {
+        docs: {
+            storyDescription: 'storyDescription',
+        },
+    },
+};
+
+export const Three = () => (
+    <Example text="three"/>
+);
