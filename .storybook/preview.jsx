@@ -1,9 +1,9 @@
 import React from 'react';
 import {addDecorator, addParameters} from '@storybook/react';
 import {withA11y} from '@storybook/addon-a11y';
-import { DocsPage, DocsContainer } from '@storybook/addon-docs/blocks';
+import {DocsPage, DocsContainer} from '@storybook/addon-docs/blocks';
 import {withKnobs} from "@storybook/addon-knobs";
-import {withSmartKnobs} from "storybook-addon-smart-knobs";
+import withAutoKnobs from "../src/utils/storybook.helpers";
 
 addParameters({
     options: {
@@ -20,11 +20,14 @@ addParameters({
 });
 
 addDecorator(withA11y);
-addDecorator(withSmartKnobs({}));
 addDecorator(withKnobs);
 
-addDecorator(story => (
-    <>
-        {story()}
-    </>
-));
+addDecorator(story => {
+    const content = withAutoKnobs(story());
+
+    return (
+        <>
+            {content}
+        </>
+    )
+});

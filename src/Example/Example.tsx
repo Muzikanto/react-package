@@ -1,13 +1,19 @@
 import React from 'react';
 
 export interface ExampleProps {
-    /** The size of the button */
-    text: string;
+    /** Required prop */
+    one: string;
+
+    /** Not required prop */
+    two?: string;
+
+    /** Not required prop */
+    three?: string;
 }
 
 const Example = (props: ExampleProps) => {
     return (
-        <div>{props.text}</div>
+        <div className={props.two}>{props.two}</div>
     );
 };
 

@@ -9,11 +9,16 @@ export default {
 };
 
 export const One = () => (
-    <Example text="one"/>
+    <Example one="one1" two="two1"/>
 );
 
 export const Two = () => (
-    <Example text="two"/>
+    <Example one="one2" two={"two2"} three="three2"/>
+);
+
+
+export const Three = () => (
+    <Example one="one3" two="two3"/>
 );
 
 Two.story = {
@@ -24,6 +29,3 @@ Two.story = {
     },
 };
 
-export const Three = () => (
-    <Example text="three"/>
-);
